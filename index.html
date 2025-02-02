@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .happy-valentines {
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .valentines-day-card {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hearts {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .heartOne, .heartTwo, .heartThree, .heartFour, .heartFive {
+            width: 50px;
+            height: 50px;
+            background-color: pink;
+            position: absolute;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .heartOne {
+            top: 10px;
+            left: 10px;
+        }
+
+        .heartTwo {
+            top: 20px;
+            left: 80px;
+        }
+
+        .heartThree {
+            top: 30px;
+            left: 150px;
+        }
+
+        .heartFour {
+            top: 40px;
+            left: 220px;
+        }
+
+        .heartFive {
+            top: 50px;
+            left: 290px;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .text {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .lyrics {
+            display: none;
+            font-size: 18px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .final-message {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .play-button {
+            background-color: #ff6666;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .play-button:hover {
+            background-color: #ff4d4d;
+        }
+
+        .envelope {
+            margin-top: 20px;
+            animation: close-envelope 2s forwards ease-in-out;
+        }
+
+        @keyframes close-envelope {
+            from {
+                transform: rotate(0);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="happy-valentines">
+    <div class="valentines-day-card">
+        <div class="hearts">
+            <div class="heartOne"></div>
+            <div class="heartTwo"></div>
+            <div class="heartThree"></div>
+            <div class="heartFour"></div>
+            <div class="heartFive"></div>
+        </div>
+        <div class="text" id="play-text">Click to Play the Song!</div>
+        <div class="lyrics" id="lyrics"></div>
+        <div class="final-message" id="final-message"></div>
+    </div>
+    <audio id="song" src="your-song-file.mp3"></audio>
+</div>
+
+<script>
+    const playText = document.getElementById('play-text');
+    const lyricsDiv = document.getElementById('lyrics');
+    const finalMessageDiv = document.getElementById('final-message');
+    const song = document.getElementById('song');
+
+    const lyrics = [
+        "You are the spark to my flame.",
+        "Your smile brightens my world.",
+        "With every beat, my heart belongs to you."
+    ];
+
+    playText.addEventListener('click', () => {
+        playText.style.display = 'none'; // Hide the initial text
+        song.play(); // Play the song
+
+        let currentLyric = 0;
+        lyricsDiv.style.display = 'block';
+
+        const lyricInterval = setInterval(() => {
+            if (currentLyric < lyrics.length) {
+                lyricsDiv.innerHTML += `<p>${lyrics[currentLyric]}</p>`;
+                currentLyric++;
+            } else {
+                clearInterval(lyricInterval); // Stop showing lyrics when done
+                setTimeout(() => {
+                    lyricsDiv.style.display = 'none'; // Hide the lyrics
+                    finalMessageDiv.style.display = 'block'; // Show the final message
+                    finalMessageDiv.innerHTML = "Will you be my Valentine?"; // Display the final question
+                }, 2000); // Wait 2 seconds after lyrics end
+            }
+        }, 3000); // Show each lyric every 3 seconds
+    });
+</script>
+</body>
+</html>
